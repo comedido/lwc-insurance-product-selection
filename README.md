@@ -1,2 +1,2 @@
 # lwc-insurance-product-selection
-LWC Insurance Custom PRoduct Selection
+LWC Insurance Custom Product Selection
