@@ -1,0 +1,32 @@
+<template>
+    <div if:false={isLoaded}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </div>
+    <div if:true={products}>
+        <div class="slds-grid nds-grid">
+            <div class="slds-size_1-of-8 nds-size_1-of-8">
+                <vlocity_ins-button onclick={paginateBack} disabled={paginateBackDisabled} theme={theme} variant="neutral" title="back" icon-name="utility:back" extraclass="slds-size_1-of-1 nds-size_1-of-1"></vlocity_ins-button>
+            </div>
+            <div class="slds-size_6-of-8 slds-text-align_center slds-text-heading_medium slds-p-horizontal_x-small nds-size_6-of-8 nds-text-align_center nds-text-heading_medium nds-p-horizontal_x-small">
+                <h2><span>{products.length}</span> Available Products</h2>
+            </div>
+            <div class="slds-size_1-of-8 nds-size_1-of-8">
+                <vlocity_ins-button onclick={paginateForward} disabled={paginateForwardDisabled} theme={theme} variant="neutral" title="forward" icon-name="utility:forward" extraclass="slds-size_1-of-1 nds-size_1-of-1"></vlocity_ins-button>
+            </div>
+        </div>
+        <div class="slds-grid slds-gutters_x-small slds-p-vertical_medium nds-grid nds-gutters_x-small nds-p-vertical_medium">
+            <template for:each={visibleProducts} for:item="product">
+                <div key={product.Id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 nds-col nds-size_1-of-1 nds-medium-size_1-of-3" data-product-id={product.Id} onclick={selectProduct}>
+                    <vlocity_ins-ins-product-summary product={product} is-selected={product.isSelected} theme={theme}></vlocity_ins-ins-product-summary>
+                </div>
+            </template>
+        </div>
+    </div>
+    <div if:true={displayError} class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error nds-notify nds-notify_alert nds-theme_alert-texture nds-theme_error">
+        <span class="slds-icon_container slds-m-right_x-small nds-icon_container nds-m-right_x-small">
+            <vlocity_ins-icon icon-name="utility:warning" theme={theme} color="#ffffff" size="x-small"></vlocity_ins-icon>
+        </span>
+        <h2 if:true={dataError}>No input provided.</h2>
+        <h2 if:true={showValidation}>Please select a product.</h2>
+    </div>
+</template>
